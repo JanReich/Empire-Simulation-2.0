@@ -1,27 +1,43 @@
 <component name="ProjectDictionaryState">
   <dictionary name="janre">
     <words>
+      <w>abgefragt</w>
       <w>abgeschlossen</w>
+      <w>abschnitt</w>
       <w>adresse</w>
       <w>alle</w>
       <w>angegebenen</w>
+      <w>angezeigt</w>
+      <w>ansonsten</w>
       <w>auch</w>
       <w>aufgerufen</w>
+      <w>ausgeführt</w>
       <w>außerdem</w>
+      <w>bearbeitet</w>
       <w>beiden</w>
       <w>bekommt</w>
       <w>benutzer</w>
+      <w>bereich</w>
+      <w>bereiches</w>
       <w>besitzt</w>
+      <w>bestimmten</w>
+      <w>beweget</w>
       <w>bezahlen</w>
       <w>bleibt</w>
       <w>damit</w>
+      <w>dann</w>
       <w>dass</w>
       <w>daten</w>
       <w>datenbank</w>
+      <w>dessen</w>
       <w>diese</w>
       <w>dieser</w>
       <w>direkt</w>
+      <w>ebene</w>
+      <w>eine</w>
+      <w>einem</w>
       <w>einen</w>
+      <w>eines</w>
       <w>eingeben</w>
       <w>eingegebene</w>
       <w>eingegebener</w>
@@ -35,10 +51,12 @@
       <w>existieren</w>
       <w>fehlgeschlagen</w>
       <w>folgenden</w>
+      <w>folgendes</w>
       <w>formen</w>
       <w>gamefield</w>
       <w>gebaut</w>
       <w>gebäude</w>
+      <w>geklickt</w>
       <w>geladen</w>
       <w>gelöscht</w>
       <w>genug</w>
@@ -48,13 +66,17 @@
       <w>gleich</w>
       <w>größe</w>
       <w>gutgeschrieben</w>
+      <w>hintergrund</w>
       <w>hinzufügen</w>
       <w>initalisiert</w>
+      <w>innerhalb</w>
       <w>jans</w>
       <w>kann</w>
       <w>kaserne</w>
       <w>keinen</w>
+      <w>kollisionsmodell</w>
       <w>konstruktor</w>
+      <w>mausklick</w>
       <w>methode</w>
       <w>müssen</w>
       <w>nicht</w>
@@ -68,8 +90,10 @@
       <w>ressoucren</w>
       <w>ressourcen</w>
       <w>setzte</w>
+      <w>soll</w>
       <w>spieler</w>
       <w>startgebäude</w>
+      <w>steg</w>
       <w>stimmen</w>
       <w>syncronisiert</w>
       <w>tabelle</w>
@@ -79,6 +103,7 @@
       <w>verschiedenen</w>
       <w>verschlüsselung</w>
       <w>versucht</w>
+      <w>weiterhin</w>
       <w>wenn</w>
       <w>werden</w>
       <w>werderen</w>
@@ -86,6 +111,7 @@
       <w>wurde</w>
       <w>wurden</w>
       <w>zerstört</w>
+      <w>zuge</w>
       <w>überein</w>
       <w>übergebenes</w>
       <w>überprüfen</w>

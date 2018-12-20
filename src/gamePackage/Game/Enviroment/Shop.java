@@ -7,7 +7,6 @@ import engine.graphics.interfaces.LiteInteractableObject;
 import engine.toolBox.DrawHelper;
 import engine.toolBox.ImageHelper;
 import gamePackage.Game.BackEnd.Player;
-import gamePackage.Game.Buildings.Building;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -193,8 +192,6 @@ import java.util.ArrayList;
                 private BufferedImage priceItem;
                 private DatabaseConnector connector;
 
-                private Building building;
-
             public ShopItem(DatabaseConnector connector, Player player, Shop shop, int shopState, int shopPage, int index, boolean unique, String type) {
 
                 this.type = type;
@@ -277,44 +274,7 @@ import java.util.ArrayList;
             @Override
             public void mouseReleased(MouseEvent e) {
 
-                if (e.getX() > x + (88 * index) && e.getX() < x + (88 * (index + 1)) && e.getY() > y && e.getY() < y + 128 && active && shopPage == shop.getShopPage() && shop.getShopState() == shopState && isAvailable) {
 
-                    display.getActivePanel().removeObjectFromPanel(building);
-                    building = new Building(connector, display, gamefield, type, Integer.parseInt(size[0]), Integer.parseInt(size[1]));
-                    display.getActivePanel().drawObjectOnPanel(building,150);
-                } else if(active && shopPage == shop.getShopPage() && shop.getShopState() == shopState && building != null) {
-
-                    int[] pos = gamefield.getField(e.getX(), e.getY());
-                    if(pos == null) {
-
-                        display.getActivePanel().removeObjectFromPanel(building);
-                        building = null;
-                    } else {
-
-                        if(gamefield.checkFields(pos[0], pos[1], Integer.parseInt(size[0]), Integer.parseInt(size[1]))) {
-
-                            if(player.checkGoods(woodCost, stoneCost, wheatCost, coinCost, workerCost)) {
-
-                                gamefield.addBuilding(building);
-                                player.payResources(woodCost, stoneCost, wheatCost, coinCost, workerCost);
-                                gamefield.simulateBuild(pos[0], pos[1], Integer.parseInt(size[0]), Integer.parseInt(size[1]));
-                                building.build(pos[0] * gamefield.getFieldSquareSize() + gamefield.getOffsetX(), pos[1] * gamefield.getFieldSquareSize() + gamefield.getOffsetY());
-                                building = null;
-                                shop.setActive(false);
-                                gamefield.setBuildingMode(false);
-
-                                connector.executeStatement("" +
-                                        "INSERT INTO JansEmpire_Buildings (" +
-                                        "" +
-                                        "Mail, Type, Level, Position) " +
-                                        "" +
-                                        "VALUES (" +
-                                        "" +
-                                        "'" + player.getMail() + "', '" + type + "', '1', '" + pos[0] + "-" + pos[1] + "');");
-                            } else { display.getActivePanel().removeObjectFromPanel(building); building = null; }
-                        } else { display.getActivePanel().removeObjectFromPanel(building); building = null; }
-                    }
-                } else { display.getActivePanel().removeObjectFromPanel(building); building = null; }
             }
 
             @Override
