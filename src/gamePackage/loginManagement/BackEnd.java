@@ -5,7 +5,7 @@ import engine.abitur.datenbanken.mysql.QueryResult;
 import engine.config.MySQLConfig;
 import engine.cryptography.MD5;
 
-public class BackEnd {
+    public class BackEnd {
 
                 //Attribute
 

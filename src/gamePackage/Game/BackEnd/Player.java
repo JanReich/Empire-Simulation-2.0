@@ -157,9 +157,15 @@ import engine.abitur.datenbanken.mysql.QueryResult;
             } xpToNexLevel = -1;
         }
 
+        public void updateStorage(int storage) {
+
+            storageAmount = storage;
+            connector.executeStatement("" +
+                    "UPDATE JansEmpire_PlayerData SET storage = '" + (storageAmount) + "' WHERE Mail = '" + mail +"';");
+        }
+
 
             //GETTER AND SETTER
-
         public String getMail() {
 
             return mail;

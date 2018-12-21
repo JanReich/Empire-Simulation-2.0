@@ -7,6 +7,7 @@ import engine.toolBox.DrawHelper;
 import engine.toolBox.ImageHelper;
 import engine.toolBox.SpriteSheet;
 import gamePackage.Game.BackEnd.Player;
+import gamePackage.Game.Buildings.BuildingSystem;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -31,6 +32,7 @@ import java.awt.image.BufferedImage;
             private Player player;
             private Display display;
             private DatabaseConnector connector;
+            private BuildingSystem buildingSystem;
 
         public Gamefield(DatabaseConnector connector, Display display, Player player) {
 
@@ -43,6 +45,8 @@ import java.awt.image.BufferedImage;
             boat = ImageHelper.getImage("res/images/Environment/Boat.png");
             steg = ImageHelper.getImage("res/images/Environment/steg.png");
             groundTiles = new SpriteSheet(ImageHelper.getImage("res/images/Environment/groundTile.png"), 4, 4, true);
+
+            buildingSystem = new BuildingSystem(connector, display, player,this);
         }
 
         @Override
@@ -80,8 +84,6 @@ import java.awt.image.BufferedImage;
             for (int col = 0; col < amountOfFields; col++)
                 draw.drawImage(groundTiles.getSubImage(1, 0), offsetX + (col * fieldSquareSize), offsetY - fieldSquareSize, fieldSquareSize);
 
-
-            buildingMode = true;
             if(!buildingMode) {
 
                 for (int col = 0; col < amountOfFields; col++)
@@ -89,10 +91,11 @@ import java.awt.image.BufferedImage;
                         draw.drawImage(groundTiles.getSubImage(1, 1), offsetX + (col * fieldSquareSize), offsetY + (row * fieldSquareSize), fieldSquareSize, fieldSquareSize);
             } else {
 
+                int [][] fieldInformation = buildingSystem.getFieldInformation();
                 for (int row = 0; row < amountOfFields; row++) {
                     for (int col = 0; col < amountOfFields; col++) {
 
-                        if (1 == 1)
+                        if (fieldInformation[row][col] == 0)
                             draw.setColour(Color.GRAY.brighter());
                         else
                             draw.setColour(Color.RED.brighter());
@@ -126,5 +129,31 @@ import java.awt.image.BufferedImage;
         @Override
         public void update(double delta) {
 
+        }
+
+            //---------- GETTER AND SETTER ---------- \\
+        public int getOffsetX() {
+
+                return offsetX;
+            }
+
+        public int getOffsetY() {
+
+            return offsetY;
+        }
+
+        public int getAmountOfFields() {
+
+            return amountOfFields;
+        }
+
+        public int getFieldSquareSize() {
+
+            return fieldSquareSize;
+        }
+
+        public BuildingSystem getBuildingSystem() {
+
+            return buildingSystem;
         }
     }

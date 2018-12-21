@@ -1,8 +1,10 @@
 <component name="ProjectDictionaryState">
   <dictionary name="janre">
     <words>
+      <w>abfrage</w>
       <w>abgefragt</w>
       <w>abgeschlossen</w>
+      <w>abgezogen</w>
       <w>abschnitt</w>
       <w>adresse</w>
       <w>alle</w>
@@ -12,9 +14,11 @@
       <w>auch</w>
       <w>aufgerufen</w>
       <w>ausgeführt</w>
+      <w>auswählt</w>
       <w>außerdem</w>
       <w>bearbeitet</w>
       <w>beiden</w>
+      <w>bekommen</w>
       <w>bekommt</w>
       <w>benutzer</w>
       <w>bereich</w>
@@ -23,6 +27,7 @@
       <w>bestimmten</w>
       <w>beweget</w>
       <w>bezahlen</w>
+      <w>bildschirm</w>
       <w>bleibt</w>
       <w>damit</w>
       <w>dann</w>
@@ -33,6 +38,7 @@
       <w>diese</w>
       <w>dieser</w>
       <w>direkt</w>
+      <w>durchgeführt</w>
       <w>ebene</w>
       <w>eine</w>
       <w>einem</w>
@@ -44,18 +50,22 @@
       <w>eingegebenes</w>
       <w>eingegebeses</w>
       <w>eintrag</w>
+      <w>eintragen</w>
       <w>einzelnen</w>
       <w>elemente</w>
+      <w>entsprechenden</w>
       <w>erfolgreich</w>
       <w>erstellt</w>
       <w>existieren</w>
       <w>fehlgeschlagen</w>
+      <w>feldinformationen</w>
       <w>folgenden</w>
       <w>folgendes</w>
       <w>formen</w>
       <w>gamefield</w>
       <w>gebaut</w>
       <w>gebäude</w>
+      <w>gebäudetyp</w>
       <w>geklickt</w>
       <w>geladen</w>
       <w>gelöscht</w>
@@ -68,6 +78,8 @@
       <w>gutgeschrieben</w>
       <w>hintergrund</w>
       <w>hinzufügen</w>
+      <w>hinzugefügt</w>
+      <w>informationen</w>
       <w>initalisiert</w>
       <w>innerhalb</w>
       <w>jans</w>
@@ -75,9 +87,11 @@
       <w>kaserne</w>
       <w>keinen</w>
       <w>kollisionsmodell</w>
+      <w>komfort</w>
       <w>konstruktor</w>
       <w>mausklick</w>
       <w>methode</w>
+      <w>methoden</w>
       <w>müssen</w>
       <w>nicht</w>
       <w>noch</w>
@@ -86,23 +100,30 @@
       <w>placeable</w>
       <w>referenzen</w>
       <w>registierung</w>
+      <w>relationen</w>
       <w>removt</w>
       <w>ressoucren</w>
       <w>ressourcen</w>
       <w>setzte</w>
+      <w>sich</w>
       <w>soll</w>
       <w>spieler</w>
       <w>startgebäude</w>
       <w>steg</w>
+      <w>steht</w>
+      <w>stelle</w>
       <w>stimmen</w>
       <w>syncronisiert</w>
       <w>tabelle</w>
       <w>tabellen</w>
       <w>textfelder</w>
+      <w>upgegradet</w>
       <w>upgradeble</w>
+      <w>upgradekosten</w>
       <w>verschiedenen</w>
       <w>verschlüsselung</w>
       <w>versucht</w>
+      <w>verändert</w>
       <w>weiterhin</w>
       <w>wenn</w>
       <w>werden</w>
@@ -112,6 +133,9 @@
       <w>wurden</w>
       <w>zerstört</w>
       <w>zuge</w>
+      <w>zwei</w>
+      <w>zwischen</w>
+      <w>überarbeitet</w>
       <w>überein</w>
       <w>übergebenes</w>
       <w>überprüfen</w>

@@ -7,6 +7,8 @@ import engine.graphics.interfaces.LiteInteractableObject;
 import engine.toolBox.DrawHelper;
 import engine.toolBox.ImageHelper;
 import gamePackage.Game.BackEnd.Player;
+import gamePackage.Game.Buildings.BuildingSystem;
+import gamePackage.Game.Buildings.GameObject;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -14,7 +16,7 @@ import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-    public class Shop implements LiteInteractableObject {
+    public class Shop extends GameObject implements LiteInteractableObject {
 
                 //Attribute
             private int shopPage;
@@ -22,26 +24,28 @@ import java.util.ArrayList;
             private boolean active;
 
                 //Referenzen
+            private Player player;
             private Display display;
-            private Gamefield gamefield;
             private BufferedImage shopGUI;
             private BufferedImage shopGUI2;
             private DatabaseConnector connector;
             private ArrayList<ShopItem> shopItems;
+            private BuildingSystem buildingSystem;
 
-        public Shop(Display display, Player player, DatabaseConnector connector, Gamefield gamefield) {
+        public Shop(BuildingSystem buildingSystem, Player player, Display display, DatabaseConnector connector) {
 
+            this.player = player;
             this.display = display;
             this.connector = connector;
-            this.gamefield = gamefield;
+            this.buildingSystem = buildingSystem;
 
             this.shopGUI = ImageHelper.getImage("res/images/Gui/Shop/ShopGUI.png");
             this.shopGUI2 = ImageHelper.getImage("res/images/Gui/Shop/ShopGUI2.png");
 
-            setShopItems(player);
+            setShopItems();
         }
 
-        private void setShopItems(Player player) {
+        private void setShopItems() {
 
             shopItems = new ArrayList<>();
             ShopItem item;
@@ -86,7 +90,7 @@ import java.util.ArrayList;
             if(e.getX() > 885 && e.getX() < 950 && e.getY() > 935 && e.getY() < 995) {
 
                 setActive(!active);
-                gamefield.setBuildingMode(active);
+                buildingSystem.setBuildingMode(active);
             }
 
             if(active) {
@@ -95,20 +99,18 @@ import java.util.ArrayList;
                 if(isInside(e, 730, 810, 50, 40)) {
 
                     active = false;
-                    gamefield.setBuildingMode(false);
+                    buildingSystem.setBuildingMode(false);
                 }
 
                     //Next Page
-                else if(isInside(e, 740, 905, 20, 35)) {
-
+                else if(isInside(e, 740, 905, 20, 35))
                     shopPage += 1;
-                }
+
 
                     //Previous Page
-                else if(isInside(e, 235, 900, 15, 40)) {
-
+                else if(isInside(e, 235, 900, 15, 40))
                     shopPage -= 1;
-                }
+
 
                     //Change State
                 else if(isInside(e,215, 810, 50, 30)) { shopState = 0; shopPage = 0; }
@@ -137,10 +139,7 @@ import java.util.ArrayList;
 
         }
 
-        private boolean isInside(MouseEvent e, int x, int y, int width, int height) {
-
-            if(e.getX() > x && e.getX() < x + width && e.getY() > y && e.getY() < y + height) return true; return false;
-        }
+            //---------- GETTER AND SETTER ---------- \\
         public int getShopPage() {
 
             return shopPage;
@@ -162,7 +161,6 @@ import java.util.ArrayList;
         }
 
 
-
         public class ShopItem implements LiteInteractableObject {
 
                     //Attribute
@@ -172,7 +170,6 @@ import java.util.ArrayList;
 
                 private int shopPage;
                 private int shopState;
-                private boolean build;
                 private boolean unique;
                 private boolean showPrices;
                 private boolean isAvailable;
@@ -186,7 +183,6 @@ import java.util.ArrayList;
                     //Referenzen
                 private Shop shop;
                 private String type;
-                private String[] size;
                 private Player player;
                 private BufferedImage item;
                 private BufferedImage priceItem;
@@ -197,8 +193,8 @@ import java.util.ArrayList;
                 this.type = type;
                 this.shop = shop;
                 this.index = index;
-                this.unique = unique;
                 this.player = player;
+                this.unique = unique;
                 this.shopPage = shopPage;
                 this.shopState = shopState;
                 this.connector = connector;
@@ -232,7 +228,7 @@ import java.util.ArrayList;
 
             private void generateCost() {
 
-                connector.executeStatement("SELECT WoodCost, StoneCost, WheatCost, CoinCost, WorkerAmount, Size FROM JansEmpire_StaticBuildings WHERE Type = '" + type + "' AND Level = '1';");
+                connector.executeStatement("SELECT WoodCost, StoneCost, WheatCost, CoinCost, WorkerAmount FROM JansEmpire_StaticBuildings WHERE Type = '" + type + "' AND Level = '1';");
                 QueryResult result = connector.getCurrentQueryResult();
 
                 woodCost = Integer.parseInt(result.getData()[0][0]);
@@ -240,9 +236,6 @@ import java.util.ArrayList;
                 wheatCost = Integer.parseInt(result.getData()[0][2]);
                 coinCost = Integer.parseInt(result.getData()[0][3]);
                 workerCost = Integer.parseInt(result.getData()[0][4]);
-
-                String temp = result.getData()[0][5];
-                size = temp.split("x");
             }
 
             @Override
@@ -254,8 +247,9 @@ import java.util.ArrayList;
 
                     draw.setColour(Color.BLACK);
                     final DecimalFormat separator = new java.text.DecimalFormat("##,###");
-                    if(isAvailable) draw.drawString(separator.format(stoneCost) + "", x + (88 * index) + 43, y + 103);
-                    if(isAvailable) draw.drawString(separator.format(woodCost) + "", x + (88 * index) + 43, y + 118);
+                    draw.setFont(new Font("Roboto", Font.PLAIN, 12));
+                    if(isAvailable) draw.drawString(separator.format(stoneCost) + "", x + (88 * index) + 35, y + 103, 38);
+                    if(isAvailable) draw.drawString(separator.format(woodCost) + "", x + (88 * index) + 35, y + 118, 38);
 
                     if (showPrices && isAvailable) {
 
@@ -274,18 +268,14 @@ import java.util.ArrayList;
             @Override
             public void mouseReleased(MouseEvent e) {
 
-
+                if(isInside(e, x + (88 * index), y, 88, 128) && shop.getShopState() == shopState && shop.getShopPage() == shopPage) buildingSystem.build(type);
             }
 
             @Override
             public void mouseMoved(MouseEvent e) {
 
-                if(shop.getShopState() == shopState && shop.getShopPage() == shopPage) {
-
-                    if (e.getX() > x + (88 * index) && e.getX() < x + (88 * (index + 1)) && e.getY() > y && e.getY() < y + 128)
-                        showPrices = true;
-                    else showPrices = false;
-                }
+                if(isInside(e, x + (88 * index), y, 88, 128) && shop.getShopState() == shopState && shop.getShopPage() == shopPage) showPrices = true;
+                else showPrices = false;
             }
 
             @Override

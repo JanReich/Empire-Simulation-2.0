@@ -1,8 +1,11 @@
 package gamePackage.Game.Buildings;
 
+import engine.graphics.interfaces.GraphicalObject;
+import engine.toolBox.DrawHelper;
+
 import java.awt.event.MouseEvent;
 
-    public class GameObject {
+    public abstract class GameObject implements GraphicalObject {
 
                 //Attribute
             protected int x;
@@ -12,6 +15,11 @@ import java.awt.event.MouseEvent;
             protected int height;
 
                 //Referenzen
+
+        public GameObject() {
+
+
+        }
 
         public GameObject(int x, int y, int width, int height) {
 
@@ -28,5 +36,26 @@ import java.awt.event.MouseEvent;
         public boolean isInside(MouseEvent e, int x, int y, int width, int height) {
 
             if(e.getX() > x && e.getX() < x + width && e.getY() > y && e.getY() < y + height) return true; return false;
+        }
+
+        @Override
+        public void update(double delta) {
+
+        }
+
+        @Override
+        public void draw(DrawHelper draw) {
+
+        }
+
+            //---------- GETTER AND SETTER ---------- \\
+        public int getX() {
+
+            return x;
+        }
+
+        public int getY() {
+
+            return y;
         }
     }

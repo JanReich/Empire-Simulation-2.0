@@ -31,7 +31,7 @@ import gamePackage.Game.Enviroment.Shop;
             GUI gui = new GUI(player);
             display.getActivePanel().drawObjectOnPanel(gui, 999);
 
-            Shop shop = new Shop(display, player, connector, gamefield);
+            Shop shop = new Shop(gamefield.getBuildingSystem(), player, display, connector);
             display.getActivePanel().drawObjectOnPanel(shop, 100);
         }
     }
