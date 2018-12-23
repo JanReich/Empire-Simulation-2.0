@@ -6,27 +6,47 @@
       <w>abgeschlossen</w>
       <w>abgezogen</w>
       <w>abschnitt</w>
+      <w>abstand</w>
       <w>adresse</w>
+      <w>aktualisiert</w>
+      <w>aktualisierung</w>
+      <w>aktualisierungen</w>
+      <w>aktualle</w>
       <w>alle</w>
+      <w>anderen</w>
       <w>angegebenen</w>
       <w>angezeigt</w>
+      <w>anhand</w>
       <w>ansonsten</w>
       <w>auch</w>
       <w>aufgerufen</w>
       <w>ausgeführt</w>
+      <w>ausgewählt</w>
       <w>auswählt</w>
       <w>außerdem</w>
+      <w>baue</w>
+      <w>bauen</w>
       <w>bearbeitet</w>
+      <w>befinden</w>
       <w>beiden</w>
       <w>bekommen</w>
       <w>bekommt</w>
       <w>benutzer</w>
+      <w>benötigente</w>
+      <w>benötigenten</w>
+      <w>benötigt</w>
+      <w>benötigten</w>
+      <w>berechnen</w>
+      <w>berechnet</w>
+      <w>berechnungen</w>
       <w>bereich</w>
       <w>bereiches</w>
+      <w>besitz</w>
       <w>besitzt</w>
       <w>bestimmten</w>
       <w>beweget</w>
       <w>bezahlen</w>
+      <w>bezug</w>
       <w>bildschirm</w>
       <w>bleibt</w>
       <w>damit</w>
@@ -34,7 +54,9 @@
       <w>dass</w>
       <w>daten</w>
       <w>datenbank</w>
+      <w>dazu</w>
       <w>dessen</w>
+      <w>deswegen</w>
       <w>diese</w>
       <w>dieser</w>
       <w>direkt</w>
@@ -43,6 +65,7 @@
       <w>eine</w>
       <w>einem</w>
       <w>einen</w>
+      <w>einer</w>
       <w>eines</w>
       <w>eingeben</w>
       <w>eingegebene</w>
@@ -57,6 +80,9 @@
       <w>erfolgreich</w>
       <w>erstellt</w>
       <w>existieren</w>
+      <w>existiert</w>
+      <w>farmhaus</w>
+      <w>farnhäuser</w>
       <w>fehlgeschlagen</w>
       <w>feldinformationen</w>
       <w>folgenden</w>
@@ -70,76 +96,130 @@
       <w>geladen</w>
       <w>gelöscht</w>
       <w>genug</w>
+      <w>genügend</w>
+      <w>geschlossen</w>
       <w>geupdatet</w>
       <w>gezeichnet</w>
       <w>gibt</w>
       <w>gleich</w>
       <w>größe</w>
       <w>gutgeschrieben</w>
+      <w>hier</w>
       <w>hintergrund</w>
       <w>hinzufügen</w>
       <w>hinzugefügt</w>
+      <w>holz</w>
+      <w>holzfäller</w>
       <w>informationen</w>
       <w>initalisiert</w>
       <w>innerhalb</w>
       <w>jans</w>
       <w>kann</w>
       <w>kaserne</w>
+      <w>kein</w>
       <w>keinen</w>
       <w>kollisionsmodell</w>
       <w>komfort</w>
       <w>konstruktor</w>
+      <w>können</w>
+      <w>lagerhaus</w>
+      <w>lediglich</w>
+      <w>letzte</w>
+      <w>letzten</w>
       <w>mausklick</w>
       <w>methode</w>
       <w>methoden</w>
+      <w>mindestens</w>
+      <w>minuten</w>
+      <w>münzen</w>
       <w>müssen</w>
       <w>nicht</w>
       <w>noch</w>
+      <w>nächsten</w>
       <w>passwort</w>
       <w>passwörter</w>
       <w>placeable</w>
+      <w>produktion</w>
+      <w>produziert</w>
+      <w>questbook</w>
+      <w>questmenü</w>
       <w>referenzen</w>
+      <w>regelmäßigen</w>
       <w>registierung</w>
       <w>relationen</w>
+      <w>relevanten</w>
       <w>removt</w>
       <w>ressoucren</w>
       <w>ressourcen</w>
+      <w>returnt</w>
+      <w>sammel</w>
+      <w>sein</w>
+      <w>seit</w>
       <w>setzte</w>
       <w>sich</w>
+      <w>sind</w>
       <w>soll</w>
+      <w>sowie</w>
+      <w>spende</w>
       <w>spieler</w>
+      <w>spieles</w>
       <w>startgebäude</w>
       <w>steg</w>
       <w>steht</w>
+      <w>steinmetze</w>
       <w>stelle</w>
       <w>stimmen</w>
+      <w>stufe</w>
+      <w>stunde</w>
+      <w>stunden</w>
       <w>syncronisiert</w>
+      <w>sämntliche</w>
+      <w>sämtliche</w>
       <w>tabelle</w>
       <w>tabellen</w>
       <w>textfelder</w>
       <w>upgegradet</w>
       <w>upgradeble</w>
       <w>upgradekosten</w>
+      <w>verantwortlich</w>
+      <w>vergangen</w>
+      <w>verschiedene</w>
       <w>verschiedenen</w>
       <w>verschlüsselung</w>
       <w>versucht</w>
       <w>verändert</w>
+      <w>viele</w>
+      <w>vollendet</w>
+      <w>wachhaus</w>
+      <w>wachhäuser</w>
       <w>weiterhin</w>
+      <w>weizen</w>
       <w>wenn</w>
       <w>werden</w>
       <w>werderen</w>
+      <w>wichtig</w>
+      <w>wichtigen</w>
+      <w>wieder</w>
       <w>wird</w>
+      <w>wohnhaus</w>
+      <w>wohnhäuser</w>
       <w>wurde</w>
       <w>wurden</w>
+      <w>zeit</w>
+      <w>zeitpunkt</w>
       <w>zerstört</w>
       <w>zuge</w>
       <w>zwei</w>
       <w>zwischen</w>
       <w>überarbeitet</w>
       <w>überein</w>
+      <w>übergeben</w>
       <w>übergebenes</w>
+      <w>übernommen</w>
       <w>überprüfen</w>
       <w>überprüft</w>
+      <w>überprüfung</w>
+      <w>überprüfungen</w>
     </words>
   </dictionary>
 </component>

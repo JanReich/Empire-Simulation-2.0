@@ -5,16 +5,17 @@ import engine.abitur.datenbanken.mysql.QueryResult;
 import engine.graphics.Display;
 import gamePackage.Game.BackEnd.Player;
 import gamePackage.Game.Enviroment.Gamefield;
+import gamePackage.Game.GameManagement;
 
 import java.util.ArrayList;
 
     public class BuildingSystem {
 
                 //Attribute
-            private int offsetX;
-            private int offsetY;
-            private int amountOfFields;
-            private int fieldSquareSize;
+            private final int offsetX;
+            private final int offsetY;
+            private final int amountOfFields;
+            private final int fieldSquareSize;
 
             private int[][] fieldInformation;
 
@@ -25,14 +26,17 @@ import java.util.ArrayList;
             private DatabaseConnector connector;
 
             private BuildingTemplate template;
+            private GameManagement gameManager;
             private ArrayList<Building> buildings;
+            private PathManagement pathManagement;
 
-        public BuildingSystem(DatabaseConnector connector, Display display, Player player, Gamefield gamefield) {
+        public BuildingSystem(GameManagement gameManager, DatabaseConnector connector, Display display, Player player, Gamefield gamefield) {
 
             this.player = player;
             this.display = display;
             this.connector = connector;
             this.gamefield = gamefield;
+            this.gameManager = gameManager;
             this.buildings = new ArrayList<>();
 
             offsetX = gamefield.getOffsetX();
@@ -40,6 +44,8 @@ import java.util.ArrayList;
             amountOfFields = gamefield.getAmountOfFields();
             fieldSquareSize = gamefield.getFieldSquareSize();
             fieldInformation = new int[amountOfFields][amountOfFields];
+            pathManagement = new PathManagement(this);
+            display.getActivePanel().drawObjectOnPanel(pathManagement, 150);
 
             loadBuildings();
         }
@@ -69,7 +75,7 @@ import java.util.ArrayList;
 
                     Building building = new Building(this, result.getData()[i][0], Integer.parseInt(position[0]),  Integer.parseInt(position[1]), Integer.parseInt(size[0]), Integer.parseInt(size[1]), Integer.parseInt(result.getData()[i][1]));
                     buildings.add(building);
-                    display.getActivePanel().drawObjectOnPanel(building, 10);
+                    display.getActivePanel().drawObjectOnPanel(building, 150);
                     updateFieldInformation(Integer.parseInt(position[0]),  Integer.parseInt(position[1]), Integer.parseInt(size[0]), Integer.parseInt(size[1]), 1);
 
                     connector.executeStatement("SELECT MAX(Level) FROM JansEmpire_StaticBuildings WHERE Type = '" + result.getData()[i][0] + "';");
@@ -78,6 +84,10 @@ import java.util.ArrayList;
                         building.setUpgradeable(true);
                         building.setUpgradeinformation(generateUpgradeInformation(building));
                     } else building.setUpgradeable(false);
+                } else {
+
+                    String[] position = result.getData()[i][2].split("-");
+                    pathManagement.loadPath(Integer.parseInt(position[0]),  Integer.parseInt(position[1]));
                 }
             }
         }
@@ -101,7 +111,6 @@ import java.util.ArrayList;
 
                 connector.executeStatement("" +
                         "UPDATE JansEmpire_Buildings SET Position = '" + building.getPosition() + "' WHERE Mail = '" + player.getMail() + "' AND Position = '" + oldPosition + "';");
-                System.out.println(connector.getErrorMessage());
             } else {
 
                 building.setMoving(false);
@@ -122,7 +131,7 @@ import java.util.ArrayList;
             String[] size = connector.getCurrentQueryResult().getData()[0][0].split("x");
             Building building = new Building(this, type, Integer.parseInt(size[0]), Integer.parseInt(size[1]));
             buildings.add(building);
-            display.getActivePanel().drawObjectOnPanel(building, 10);
+            display.getActivePanel().drawObjectOnPanel(building, 150);
             building.setUpgradeinformation(generateUpgradeInformation(building));
 
             connector.executeStatement("SELECT MAX(Level) FROM JansEmpire_StaticBuildings WHERE Type = '" + type + "';");
@@ -131,6 +140,20 @@ import java.util.ArrayList;
                 building.setUpgradeable(true);
                 building.setUpgradeinformation(generateUpgradeInformation(building));
             } else building.setUpgradeable(false);
+            gameManager.closeShop();
+            gameManager.refreshShop();
+        }
+
+
+        /**
+         * Diese Methode wird aufgerufen, wenn ein Gebäude neu gebaut wird.
+         * Im Zuge dessen wird folgendes ausgeführt:
+         *
+         *
+         */
+        public void buildPath() {
+
+            pathManagement.setBuilding(true);
         }
 
         /**
@@ -145,6 +168,8 @@ import java.util.ArrayList;
 
             removeSelectedBuilding(building);
             updateFieldInformation(building.getFieldX(), building.getFieldY(), building.getFieldWidth(), building.getFieldHeight(), 0);
+            gameManager.refreshShop();
+            gameManager.refreshQuestbook(building.getType());
         }
 
         /**
@@ -190,6 +215,7 @@ import java.util.ArrayList;
                 updateFieldInformation(building.getFieldX(), building.getFieldY(), building.getFieldWidth(), building.getFieldHeight(), 1);
             }
             setBuildingMode(false);
+            gameManager.closeShop();
         }
 
         /**
@@ -219,7 +245,37 @@ import java.util.ArrayList;
                         "VALUES (" +
                         "" +
                         "'" + player.getMail() + "', '" + building.getType() + "', '" + building.getLevel() + "', '" + building.getFieldX() + "-" + building.getFieldY() + "');");
+                gameManager.closeShop();
+                gameManager.refreshShop();
+                gameManager.refreshQuestbook(building.getType());
             } else removeSelectedBuilding(building);
+        }
+
+        public void buildPath(int movingX, int movingY) {
+
+            int[] fields = getField(movingX, movingY);
+
+            if(fields != null) {
+
+                if (isFieldEmpty(fields[0], fields[1], 1, 1)) {
+
+                    UpgradeInformation information = pathManagement.getUpgradeInformation();
+                    if (player.checkGoods(information.getWoodCost(), information.getStoneCost(), information.getWheatCost(), information.getCoinCost(), information.getWorkerCost())) {
+
+                        player.payResources(information.getWoodCost(), information.getStoneCost(), information.getWheatCost(), information.getCoinCost(), information.getWorkerCost());
+                        pathManagement.loadPath(fields[0], fields[1]);
+                        connector.executeStatement("" +
+                                "INSERT INTO JansEmpire_Buildings (" +
+                                "" +
+                                "Mail, Type, Level, Position) " +
+                                "" +
+                                "VALUES (" +
+                                "" +
+                                "'" + player.getMail() + "', '" + "Path" + "', '" + 1 + "', '" + fields[0] + "-" + fields[1] + "');");
+                        pathManagement.setBuilding(false);
+                    } else pathManagement.setBuilding(false);
+                } else pathManagement.setBuilding(false);
+            }
         }
 
         /**
@@ -242,6 +298,25 @@ import java.util.ArrayList;
         private UpgradeInformation generateUpgradeInformation(Building building) {
 
             connector.executeStatement("SELECT WoodCost, StoneCost, WheatCost, CoinCost, WorkerAmount, Size FROM JansEmpire_StaticBuildings WHERE Type = '" + building.getType() + "' AND Level = '" + (building.getLevel() + 1) + "';");
+            QueryResult result = connector.getCurrentQueryResult();
+
+            String[] tempSize = result.getData()[0][5].split("x");
+            int[] size = new int[2];
+            size[0] = Integer.parseInt(tempSize[0]);
+            size[1] = Integer.parseInt(tempSize[1]);
+
+            return new UpgradeInformation(Integer.parseInt(result.getData()[0][0]), Integer.parseInt(result.getData()[0][1]), Integer.parseInt(result.getData()[0][2]), Integer.parseInt(result.getData()[0][3]), Integer.parseInt(result.getData()[0][4]), size);
+        }
+
+        /**
+         * Diese Methode wird aufgerufen, wenn die Upgradekosten geupdatet werden muss.
+         * Im Zuge dessen wird folgendes ausgeführt:
+         *
+         *
+         */
+        public UpgradeInformation generateUpgradeInformation(String type) {
+
+            connector.executeStatement("SELECT WoodCost, StoneCost, WheatCost, CoinCost, WorkerAmount, Size FROM JansEmpire_StaticBuildings WHERE Type = '" + type + "' AND Level = '" + 1 + "';");
             QueryResult result = connector.getCurrentQueryResult();
 
             String[] tempSize = result.getData()[0][5].split("x");
@@ -297,7 +372,7 @@ import java.util.ArrayList;
             if(template == null && building != null) {
 
                 template = new BuildingTemplate(this, building, offsetX + (building.getFieldX() * fieldSquareSize), offsetY + (building.getFieldY() * fieldSquareSize), building.getFieldWidth() * fieldSquareSize, building.getFieldHeight() * fieldSquareSize);
-                display.getActivePanel().drawObjectOnPanel(template, 11);
+                display.getActivePanel().drawObjectOnPanel(template, 151);
             } else {
 
                 display.getActivePanel().removeObjectFromPanel(template);
@@ -311,8 +386,29 @@ import java.util.ArrayList;
          */
         public void removeSelectedBuilding(Building building) {
 
+            gameManager.closeShop();
+            setBuildingMode(false);
             display.getActivePanel().removeObjectFromPanel(building);
             buildings.remove(building);
+        }
+
+        /**
+         * In dieser Methode wird überprüft ob der Spieler genug Ressoucren hat
+         * @return true = Player has enough resources || false = Player has not enough resources
+         */
+        public boolean checkResources(int wood, int stone, int wheat, int coins, int worker) {
+
+            return player.checkGoods(wood, stone, wheat, coins, worker);
+        }
+
+        /**
+         * In dieser Methode muss der Spieler Ressourcen bezahlen.
+         * Diese werden auch direkt mit der Datenbank syncronisiert
+         * @return true = Player has payed || false = Player has not enough resources
+         */
+        public boolean payResources(int wood, int stone, int wheat, int coins, int worker) {
+
+            return player.payResources(wood, stone, wheat, coins, worker);
         }
 
             //---------- GETTER AND SETTER ---------- \\
@@ -334,6 +430,11 @@ import java.util.ArrayList;
         public int getFieldSquareSize() {
 
             return fieldSquareSize;
+        }
+
+        public boolean isQuestBookOpen() {
+
+            return gameManager.isQuestBookOpened();
         }
 
         public int[][] getFieldInformation() {

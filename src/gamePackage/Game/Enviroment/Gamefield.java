@@ -8,6 +8,7 @@ import engine.toolBox.ImageHelper;
 import engine.toolBox.SpriteSheet;
 import gamePackage.Game.BackEnd.Player;
 import gamePackage.Game.Buildings.BuildingSystem;
+import gamePackage.Game.GameManagement;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -34,7 +35,7 @@ import java.awt.image.BufferedImage;
             private DatabaseConnector connector;
             private BuildingSystem buildingSystem;
 
-        public Gamefield(DatabaseConnector connector, Display display, Player player) {
+        public Gamefield(GameManagement gameManager, DatabaseConnector connector, Display display, Player player) {
 
             this.player = player;
             this.display = display;
@@ -46,7 +47,7 @@ import java.awt.image.BufferedImage;
             steg = ImageHelper.getImage("res/images/Environment/steg.png");
             groundTiles = new SpriteSheet(ImageHelper.getImage("res/images/Environment/groundTile.png"), 4, 4, true);
 
-            buildingSystem = new BuildingSystem(connector, display, player,this);
+            buildingSystem = new BuildingSystem(gameManager, connector, display, player,this);
         }
 
         @Override

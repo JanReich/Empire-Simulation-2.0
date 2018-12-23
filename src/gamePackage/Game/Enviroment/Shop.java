@@ -45,6 +45,21 @@ import java.util.ArrayList;
             setShopItems();
         }
 
+        public void close() {
+
+            shopPage = 0;
+            shopState = 0;
+            active = false;
+        }
+
+        public void refreshShop() {
+
+            for (ShopItem shopItem : shopItems) {
+
+                shopItem.generateInformation();
+            }
+        }
+
         private void setShopItems() {
 
             shopItems = new ArrayList<>();
@@ -70,7 +85,7 @@ import java.util.ArrayList;
             display.getActivePanel().drawObjectOnPanel(item, 106);
             shopItems.add(item);
 
-            item = new ShopItem(connector, player, this, 0, 1, 0, false, "Woodcutter");
+            item = new ShopItem(connector, player, this, 0, 1, 0, false, "Path");
             display.getActivePanel().drawObjectOnPanel(item, 110);
             shopItems.add(item);
 
@@ -268,13 +283,15 @@ import java.util.ArrayList;
             @Override
             public void mouseReleased(MouseEvent e) {
 
-                if(isInside(e, x + (88 * index), y, 88, 128) && shop.getShopState() == shopState && shop.getShopPage() == shopPage) buildingSystem.build(type);
+                if(isInside(e, x + (88 * index), y, 88, 128) && shop.getShopState() == shopState && shop.getShopPage() == shopPage && active && isAvailable)
+                    if(!type.equalsIgnoreCase("Path")) buildingSystem.build(type);
+                    else buildingSystem.buildPath();
             }
 
             @Override
             public void mouseMoved(MouseEvent e) {
 
-                if(isInside(e, x + (88 * index), y, 88, 128) && shop.getShopState() == shopState && shop.getShopPage() == shopPage) showPrices = true;
+                if(isInside(e, x + (88 * index), y, 88, 128) && shop.getShopState() == shopState && shop.getShopPage() == shopPage && active && isAvailable) showPrices = true;
                 else showPrices = false;
             }
 

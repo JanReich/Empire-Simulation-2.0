@@ -65,7 +65,7 @@ import java.awt.image.BufferedImage;
         @Override
         public void mouseReleased(MouseEvent e) {
 
-            if(isInside(e, offsetX + (fieldX * fieldSquareSize), offsetY + (fieldY * fieldSquareSize), fieldWidth * fieldSquareSize, fieldHeight * fieldSquareSize)) {
+            if(isInside(e, offsetX + (fieldX * fieldSquareSize), offsetY + (fieldY * fieldSquareSize), fieldWidth * fieldSquareSize, fieldHeight * fieldSquareSize) && !buildingSystem.isQuestBookOpen()) {
 
                 if(!upgrading && !building && !moving) {
 

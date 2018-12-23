@@ -178,7 +178,11 @@ import java.util.*;
 
         public int getZIndex(GraphicalObject object) {
 
-            return graphicalObjects.get(object);
+            if(object != null) {
+
+                return graphicalObjects.get(object);
+            }
+            return -1;
         }
 
         public void setZIndex(GraphicalObject object, int index) {
@@ -326,6 +330,9 @@ import java.util.*;
                 if(obj instanceof AdvancedInteractableObject) {
 
                     ((AdvancedInteractableObject) obj).mousePressed(e);
+                } else if(obj instanceof MouseObject) {
+
+                    ((MouseObject) obj).mousePressed(e);
                 }
             }
         }

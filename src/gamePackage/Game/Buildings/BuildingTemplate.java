@@ -7,6 +7,7 @@ import engine.toolBox.ImageHelper;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.text.DecimalFormat;
 
     public class BuildingTemplate implements LiteInteractableObject {
 
@@ -15,6 +16,8 @@ import java.awt.image.BufferedImage;
             private int y;
             private int width;
             private int height;
+
+            private boolean drawPrice;
 
                 //Referenzen
             private BufferedImage move;
@@ -51,9 +54,23 @@ import java.awt.image.BufferedImage;
             if(building.isDestroyable())
                 draw.drawImage(destroy, x + (width / 2) - 17, y + (height / 2) + 28, 35, 35);
 
-            if(building.isUpgradable())
+            if(building.isUpgradable()) {
                 draw.drawImage(upgradeButton, x + (width / 2) - 17, y + (height / 2) - 60, 35, 35);
 
+                if (drawPrice) {
+
+                    draw.drawImage(priceList, x + (width / 2) - 47, y + (height / 2));
+
+                    draw.setColour(Color.BLACK);
+                    UpgradeInformation information = building.getUpgradeinformation();
+                    final DecimalFormat separator = new java.text.DecimalFormat("##,###");
+                    draw.drawString(separator.format(information.getCoinCost()), x + (width / 2) - 47 + 40, y + (height / 2) + 18);
+                    draw.drawString(separator.format(information.getStoneCost()), x + (width / 2) - 47 + 40, y + (height / 2) + 33);
+                    draw.drawString(separator.format(information.getWoodCost()), x + (width / 2) - 47 + 40, y + (height / 2) + 48);
+                    draw.drawString(separator.format(information.getWorkerCost()), x + (width / 2) - 47 + 40, y + (height / 2) + 63);
+                    draw.drawString(separator.format(information.getWheatCost()), x + (width / 2) - 47 + 40, y + (height / 2) + 78);
+                }
+            }
         }
 
         @Override
@@ -99,7 +116,8 @@ import java.awt.image.BufferedImage;
         @Override
         public void mouseMoved(MouseEvent e) {
 
-
+            if(e.getX() > x + (width / 2) - 17 && e.getX() < x + (width / 2) + 18 && e.getY() > y + (height / 2) - 60 && e.getY() < y + (height / 2) - 25) drawPrice = true;
+            else drawPrice = false;
         }
 
         @Override
