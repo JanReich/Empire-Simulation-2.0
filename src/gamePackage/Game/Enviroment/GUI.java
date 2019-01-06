@@ -1,9 +1,8 @@
 package gamePackage.Game.Enviroment;
 
-import engine.graphics.interfaces.GraphicalObject;
 import engine.graphics.interfaces.LiteInteractableObject;
 import engine.toolBox.DrawHelper;
-import engine.toolBox.ImageHelper;
+import engine.toolBox.SourceHelper.ImageHelper;
 import gamePackage.Game.BackEnd.Player;
 
 import java.awt.*;

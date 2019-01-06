@@ -2,7 +2,7 @@ package gamePackage.Game.Buildings;
 
 import engine.graphics.interfaces.LiteInteractableObject;
 import engine.toolBox.DrawHelper;
-import engine.toolBox.ImageHelper;
+import engine.toolBox.SourceHelper.ImageHelper;
 
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;

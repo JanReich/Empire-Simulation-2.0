@@ -3,6 +3,7 @@ package engine;
 import engine.graphics.Display;
 import gamePackage.loginManagement.StateManager;
 
+import javax.swing.*;
 import java.awt.*;
 
     public class MainProgram {

@@ -1,6 +1,7 @@
 package engine.toolBox;
 
 import engine.graphics.interfaces.GraphicalObject;
+import engine.toolBox.SourceHelper.ImageHelper;
 
 import java.awt.image.BufferedImage;
 

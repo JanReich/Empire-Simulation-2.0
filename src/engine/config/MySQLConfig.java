@@ -1,7 +1,6 @@
 package engine.config;
 
-import engine.toolBox.FileHelper;
-import engine.toolBox.MySQL;
+import engine.toolBox.SourceHelper.FileHelper;
 
 import java.io.File;
 import java.util.HashMap;

@@ -241,6 +241,16 @@ import java.util.Date;
                 return null;
             }
 
+            public void updateData(int livingRoom, int storageAmount) {
+
+                this.worker += livingRoom;
+                this.population += livingRoom;
+                this.storageAmount += storageAmount;
+
+                connector.executeStatement("" +
+                        "UPDATE JansEmpire_PlayerData SET StorageAmount = '" + storageAmount + "', Population = '" + worker + "' WHERE Mail = '" + mail + "';");
+            }
+
         //GETTER AND SETTER
         public String getMail() {
 

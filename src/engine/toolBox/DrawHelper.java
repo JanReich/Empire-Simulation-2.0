@@ -1,6 +1,7 @@
 package engine.toolBox;
 
-import javax.swing.*;
+import engine.toolBox.SourceHelper.ImageHelper;
+
 import java.awt.*;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;

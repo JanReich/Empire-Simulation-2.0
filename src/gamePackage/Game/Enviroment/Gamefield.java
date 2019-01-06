@@ -4,7 +4,7 @@ import engine.abitur.datenbanken.mysql.DatabaseConnector;
 import engine.graphics.Display;
 import engine.graphics.interfaces.GraphicalObject;
 import engine.toolBox.DrawHelper;
-import engine.toolBox.ImageHelper;
+import engine.toolBox.SourceHelper.ImageHelper;
 import engine.toolBox.SpriteSheet;
 import gamePackage.Game.BackEnd.Player;
 import gamePackage.Game.Buildings.BuildingSystem;

@@ -2,7 +2,7 @@ package engine.graphics;
 
 import engine.config.DisplayConfig;
 import engine.graphics.interfaces.WindowEvents;
-import engine.toolBox.ImageHelper;
+import engine.toolBox.SourceHelper.ImageHelper;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,197 +13,197 @@ import java.util.Iterator;
 
 public class Display extends JFrame implements WindowListener {
 
-        //Attribute
+            //Attribute
 
-        //Referenzen
-    private DisplayConfig config;
-    private ArrayList<Panel> panels;
-    private DrawingPanel activeDrawingPanel;
+            //Referenzen
+        private DisplayConfig config;
+        private ArrayList<Panel> panels;
+        private DrawingPanel activeDrawingPanel;
 
-    private ArrayList<WindowEvents> listeners;
+        private ArrayList<WindowEvents> listeners;
 
-public Display() {
+    public Display() {
 
-    panels = new ArrayList<>();
-    this.config = new DisplayConfig();
+        panels = new ArrayList<>();
+        this.config = new DisplayConfig();
 
-    listeners = new ArrayList<>();
+        listeners = new ArrayList<>();
 
-    init();
-}
+        init();
+    }
 
-private void init() {
+    private void init() {
 
-    addWindowListener(this);
-    setTitle(config.getTitle());
-    setResizable(config.isResizable());
-    setAlwaysOnTop(config.isAlwaysOnTop());
-    setDefaultCloseOperation(EXIT_ON_CLOSE);
+        addWindowListener(this);
+        setTitle(config.getTitle());
+        setResizable(config.isResizable());
+        setAlwaysOnTop(config.isAlwaysOnTop());
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        //Größe des Fensters festlegen
-    Dimension windowDimension = new Dimension(config.getWidth() * config.getScale(), config.getHeight() * config.getScale());
+            //Größe des Fensters festlegen
+        Dimension windowDimension = new Dimension(config.getWidth() * config.getScale(), config.getHeight() * config.getScale());
 
-    if(config.isResizable()) {
+        if(config.isResizable()) {
 
-        setSize(windowDimension);
-        setResizable(true);
-    } else {
+            setSize(windowDimension);
+            setResizable(true);
+        } else {
 
-        setSize(windowDimension);
-        setResizable(false);
-        setMinimumSize(windowDimension);
-        setMaximumSize(windowDimension);
-        setPreferredSize(windowDimension);
+            setSize(windowDimension);
+            setResizable(false);
+            setMinimumSize(windowDimension);
+            setMaximumSize(windowDimension);
+            setPreferredSize(windowDimension);
+        }
 
         setIconImage(ImageHelper.getImage("res/images/Framework/Controller.png"));
-    }
 
         //Position des Displays setzen
-    if(config.isCentered()) setLocationRelativeTo(null);
-    else setLocation(config.getWindowX(), config.getWindowY());
+        if(config.isCentered()) setLocationRelativeTo(null);
+        else setLocation(config.getWindowX(), config.getWindowY());
 
-    addDrawingPanel();
+        addDrawingPanel();
 
-    setVisible(true);
-}
+        setVisible(true);
+    }
 
-public void addPanel(Panel panel) {
+    public void addPanel(Panel panel) {
 
-    panels.add(panel);
-}
-
-public DrawingPanel addDrawingPanel() {
-
-    if(config != null) {
-
-        DrawingPanel panel = new DrawingPanel(config);
         panels.add(panel);
-        if(activeDrawingPanel == null) setActivePanel(panel);
-        return panel;
-    } else throw new NullPointerException("Die Config konnte nicht geladen werden... Um den Fehler zu beheben starte das Programm neu!");
-}
+    }
 
-public void setActivePanel(Panel panel) {
+    public DrawingPanel addDrawingPanel() {
 
-    if(panel instanceof DrawingPanel) {
+        if(config != null) {
 
-        if(activeDrawingPanel != null) {
+            DrawingPanel panel = new DrawingPanel(config);
+            panels.add(panel);
+            if(activeDrawingPanel == null) setActivePanel(panel);
+            return panel;
+        } else throw new NullPointerException("Die Config konnte nicht geladen werden... Um den Fehler zu beheben starte das Programm neu!");
+    }
 
-            remove(activeDrawingPanel);
+    public void setActivePanel(Panel panel) {
 
-            activeDrawingPanel = (DrawingPanel) panel;
-            add(activeDrawingPanel);
-            revalidate();
+        if(panel instanceof DrawingPanel) {
+
+            if(activeDrawingPanel != null) {
+
+                remove(activeDrawingPanel);
+
+                activeDrawingPanel = (DrawingPanel) panel;
+                add(activeDrawingPanel);
+                revalidate();
+            } else {
+
+                add(panel);
+                activeDrawingPanel = (DrawingPanel) panel;
+            }
         } else {
 
-            add(panel);
-            activeDrawingPanel = (DrawingPanel) panel;
-        }
-    } else {
-
-        //TODO: Andere Panels
-    }
-}
-
-public void removePanel(Panel panel) {
-
-    if(panels.contains(panel)) {
-
-        if(panel.equals(activeDrawingPanel)) {
-
-            activeDrawingPanel = null;
-            remove(panel);
-            panels.remove(panel);
-        } else {
-
-            panels.remove(activeDrawingPanel);
-        }
-    } else throw new IllegalArgumentException("Du kannst nur Panels entfernen, die du vorher hinzugefügt hast!");
-}
-
-public DrawingPanel getActivePanel() {
-
-    return activeDrawingPanel;
-}
-
-public ArrayList<Panel> getInactivePanels() {
-
-    ArrayList<Panel> inactivePanels = new ArrayList<>();
-
-    for(Panel panel : panels) {
-
-        if(!(panel.equals(activeDrawingPanel))) {
-
-            inactivePanels.add(panel);
+            //TODO: Andere Panels
         }
     }
-    return inactivePanels;
-}
 
-public void addWindowListener(WindowEvents listener) {
+    public void removePanel(Panel panel) {
 
-    SwingUtilities.invokeLater(() -> listeners.add(listener));
-}
+        if(panels.contains(panel)) {
 
-public void removeWindowListener(WindowEvents listener) {
+            if(panel.equals(activeDrawingPanel)) {
 
-    SwingUtilities.invokeLater(() -> listeners.add(listener));
-}
+                activeDrawingPanel = null;
+                remove(panel);
+                panels.remove(panel);
+            } else {
 
-    //Events
-@Override
-public void windowClosing(WindowEvent e) {
-
-        //Wenn das Fenster geschlossen wird
-    Iterator<WindowEvents> iterator = listeners.iterator();
-    while (iterator.hasNext()) {
-
-        WindowEvents tempObject = iterator.next();
-        tempObject.windowClosing(e);
+                panels.remove(activeDrawingPanel);
+            }
+        } else throw new IllegalArgumentException("Du kannst nur Panels entfernen, die du vorher hinzugefügt hast!");
     }
-}
 
-@Override
-public void windowActivated(WindowEvent e) {
+    public DrawingPanel getActivePanel() {
 
-        //Window wieder fokussieren
-    Iterator<WindowEvents> iterator = listeners.iterator();
-    while (iterator.hasNext()) {
-
-        WindowEvents tempObject = iterator.next();
-        tempObject.windowActivated(e);
+        return activeDrawingPanel;
     }
-}
 
-@Override
-public void windowDeactivated(WindowEvent e) {
+    public ArrayList<Panel> getInactivePanels() {
 
-        //Window focus verloren
-    Iterator<WindowEvents> iterator = listeners.iterator();
-    while (iterator.hasNext()) {
+        ArrayList<Panel> inactivePanels = new ArrayList<>();
 
-        WindowEvents tempObject = iterator.next();
-        tempObject.windowDeactivated(e);
+        for(Panel panel : panels) {
+
+            if(!(panel.equals(activeDrawingPanel))) {
+
+                inactivePanels.add(panel);
+            }
+        }
+        return inactivePanels;
     }
-}
 
-@Override
-public void windowOpened(WindowEvent e) {
+    public void addWindowListener(WindowEvents listener) {
 
-}
+        SwingUtilities.invokeLater(() -> listeners.add(listener));
+    }
 
-@Override
-public void windowClosed(WindowEvent e) {
+    public void removeWindowListener(WindowEvents listener) {
 
-}
+        SwingUtilities.invokeLater(() -> listeners.add(listener));
+    }
 
-@Override
-public void windowIconified(WindowEvent e) {
+        //Events
+    @Override
+    public void windowClosing(WindowEvent e) {
 
-}
+            //Wenn das Fenster geschlossen wird
+        Iterator<WindowEvents> iterator = listeners.iterator();
+        while (iterator.hasNext()) {
 
-@Override
-public void windowDeiconified(WindowEvent e) {
+            WindowEvents tempObject = iterator.next();
+            tempObject.windowClosing(e);
+        }
+    }
 
-}
+    @Override
+    public void windowActivated(WindowEvent e) {
+
+            //Window wieder fokussieren
+        Iterator<WindowEvents> iterator = listeners.iterator();
+        while (iterator.hasNext()) {
+
+            WindowEvents tempObject = iterator.next();
+            tempObject.windowActivated(e);
+        }
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+
+            //Window focus verloren
+        Iterator<WindowEvents> iterator = listeners.iterator();
+        while (iterator.hasNext()) {
+
+            WindowEvents tempObject = iterator.next();
+            tempObject.windowDeactivated(e);
+        }
+    }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+
+    }
 }

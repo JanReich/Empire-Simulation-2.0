@@ -1,6 +1,7 @@
 package engine.toolBox;
 
 import engine.graphics.interfaces.AdvancedInteractableObject;
+import engine.toolBox.SourceHelper.ImageHelper;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;

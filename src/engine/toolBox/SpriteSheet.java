@@ -1,5 +1,7 @@
 package engine.toolBox;
 
+import engine.toolBox.SourceHelper.ImageHelper;
+
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 

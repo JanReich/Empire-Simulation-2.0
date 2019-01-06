@@ -47,11 +47,6 @@ import java.util.*;
             time.start();
         }
 
-        public void addManagement(ManagementObject obj) {
-
-            managementObjects.add(obj);
-        }
-
         public void paintComponent(Graphics g) {
 
             if(!requested) {
@@ -67,7 +62,7 @@ import java.util.*;
             super.paintComponent(g);
             Graphics2D g2d = (Graphics2D) g;
 
-            //ANTIALIASING einschalten
+                //ANTIALIASING einschalten
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
             //Graphics setzen oder updaten
@@ -119,6 +114,12 @@ import java.util.*;
                 g2d.setFont(new Font("", Font.BOLD, 24));
                 g2d.drawString("FPS: " + fps, 5, 24);
             }
+        }
+
+
+        public void addManagement(ManagementObject obj) {
+
+            managementObjects.add(obj);
         }
 
         public boolean contains(Object o) {
@@ -209,6 +210,9 @@ import java.util.*;
             }
             return map;
         }
+
+
+
 
 
         @Override

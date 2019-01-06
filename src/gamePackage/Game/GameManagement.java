@@ -9,7 +9,7 @@ import gamePackage.Game.Enviroment.Gamefield;
 import gamePackage.Game.Enviroment.Shop;
 import gamePackage.Game.Quest.QuestBook;
 
-    public class GameManagement {
+public class GameManagement {
 
                 //Attribute
 
@@ -43,7 +43,7 @@ import gamePackage.Game.Quest.QuestBook;
             questBook = new QuestBook(connector, display,this, player);
             display.getActivePanel().drawObjectOnPanel(questBook, 200);
 
-            Refresh refresh = new Refresh(player);
+            new Refresh(player);
         }
 
         public void closeShop() {

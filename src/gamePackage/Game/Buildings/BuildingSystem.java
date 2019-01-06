@@ -95,8 +95,6 @@ import java.util.ArrayList;
         /**
          * Diese Methode wird aufgerufen, wenn ein Gebäude beweget werden soll.
          * Im Zuge dessen wird folgendes ausgeführt:
-         *
-         *
          */
         public void move(Building building, int x, int y) {
 
@@ -121,8 +119,6 @@ import java.util.ArrayList;
         /**
          * Diese Methode wird aufgerufen, wenn ein Gebäude neu gebaut wird.
          * Im Zuge dessen wird folgendes ausgeführt:
-         *
-         *
          */
         public void build(String type) {
 
@@ -148,8 +144,6 @@ import java.util.ArrayList;
         /**
          * Diese Methode wird aufgerufen, wenn ein Gebäude neu gebaut wird.
          * Im Zuge dessen wird folgendes ausgeführt:
-         *
-         *
          */
         public void buildPath() {
 
@@ -159,8 +153,6 @@ import java.util.ArrayList;
         /**
          * Diese Methode wird aufgerufen, wenn ein gebäude zerstört wird.
          * Im Zuge dessen wird folgendes ausgeführt:
-         *
-         *
          */
         public void destroy(Building building) {
 
@@ -175,8 +167,6 @@ import java.util.ArrayList;
         /**
          * Diese Methode wird aufgerufen, wenn ein gebäude upgegradet wird.
          * Im Zuge dessen wird folgendes ausgeführt:
-         *
-         *
          */
         public void upgrade(Building building, int x, int y) {
 
@@ -225,11 +215,10 @@ import java.util.ArrayList;
          *  Die Feldinformationen, auf dem das Gebäude steht werden überarbeitet
          *  Das Gebäude in die Datenbank eintragen
          *  Ressourcen werden dem Spieler abgezogen
-         *
          */
         public void saveBuilding(Building building) {
 
-            connector.executeStatement("SELECT WoodCost, StoneCost, WheatCost, CoinCost, WorkerAmount, StorageAmount, LivingRoom FROM JansEmpire_StaticBuildings WHERE Type = '" + building.getType() + "' AND Level = '" + building.getLevel() + "'");
+            connector.executeStatement("SELECT WoodCost, StoneCost, WheatCost, CoinCost, WorkerAmount FROM JansEmpire_StaticBuildings WHERE Type = '" + building.getType() + "' AND Level = '" + building.getLevel() + "'");
             QueryResult result = connector.getCurrentQueryResult();
 
             if(player.checkGoods(Integer.parseInt(result.getData()[0][0]), Integer.parseInt(result.getData()[0][1]), Integer.parseInt(result.getData()[0][2]), Integer.parseInt(result.getData()[0][3]), Integer.parseInt(result.getData()[0][4]))) {
@@ -281,8 +270,6 @@ import java.util.ArrayList;
         /**
          * Diese Methode wird aufgerufen, wenn ein gebäude geupdatet werden muss.
          * Im Zuge dessen wird folgendes ausgeführt:
-         *
-         *
          */
         public void updateBuilding(Building building) {
 
@@ -292,8 +279,6 @@ import java.util.ArrayList;
         /**
          * Diese Methode wird aufgerufen, wenn die Upgradekosten geupdatet werden muss.
          * Im Zuge dessen wird folgendes ausgeführt:
-         *
-         *
          */
         private UpgradeInformation generateUpgradeInformation(Building building) {
 
@@ -311,8 +296,6 @@ import java.util.ArrayList;
         /**
          * Diese Methode wird aufgerufen, wenn die Upgradekosten geupdatet werden muss.
          * Im Zuge dessen wird folgendes ausgeführt:
-         *
-         *
          */
         public UpgradeInformation generateUpgradeInformation(String type) {
 
