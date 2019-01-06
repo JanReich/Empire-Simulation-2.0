@@ -330,6 +330,7 @@ import java.util.ArrayList;
             for (int row = fieldX; row < fieldX + fieldWidth; row++) {
                 for (int col = fieldY; col < fieldY + fieldHeight; col++) {
 
+                    if(row >= fieldInformation.length || col >= fieldInformation[row].length) return  false;
                     if(fieldInformation[row][col] == 1) return false;
                 }
             }
